@@ -1,0 +1,21 @@
+{
+    "name": "luizmoitinho/rest_api_php",
+    "description": "Simoles REST API PHP",
+    "type": "project",
+    "require": {
+        "coffeecode/datalayer": "1.1.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luiz Moitinho",
+            "email": "luizcarlos_csotam@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload":{
+        "psr-4": {
+            "Source\\":"source/"
+        }
+    }
+}
