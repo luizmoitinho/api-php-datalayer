@@ -38,6 +38,22 @@ switch($_SERVER['REQUEST_METHOD']){
             Validations::setHeaderResponse("201 Created","Usuário criado com sucesso.");
         }
         break;
+    case 'GET':
+        header("http/1.1 200 ok");
+        $users =  new User_Model();
+
+        if($users->find()->Count()>0){
+            $listUsers = array();
+            foreach($users->find()->fetch(true) as $user){
+                // Tratamento do dados vindo do banco...
+                array_push($listUsers,$user->data());
+            }
+            echo json_encode(array('response'=>$listUsers));
+        }else{
+            echo json_encode(array('response'=>'Não há usuários localizados.'));
+        }
+
+        break; 
     default:
         // O metodo usado não é autorizado
         Validations::setHeaderResponse("401 Unauthorized","Método não previsto na API.");
