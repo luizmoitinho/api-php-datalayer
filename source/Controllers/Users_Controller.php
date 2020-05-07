@@ -54,6 +54,39 @@ switch($_SERVER['REQUEST_METHOD']){
         }
 
         break; 
+    case 'PUT':
+        $userId = filter_input(INPUT_GET,'id');
+        if(!$userId){
+            Validations::setHeaderResponse("400 Bad Request","id não informado");
+            exit;
+        }
+
+        $data = json_decode(file_get_contents('php://input'),false);
+        if(!$data){
+            Validations::setHeaderResponse("400 Bad request","Nenhum dado foi informado.");
+            exit;
+        }
+        $errors = Validations::validateFormCad($data);
+        if($errors !== TRUE){
+            Validations::setHeaderResponse("400 Bad request","Há campos inválidos no formulário.",$errors);
+            exit;
+        }
+
+        $user =  (new User_Model())->findById($userId);
+        $user->nome_usuario  = $data->nome_usuario;
+        $user->email_usuario = $data->email_usuario;
+        $user->usuario = $data->usuario;
+        $user->senha  = $data->senha;
+        
+        $user->save();
+        if ($user->fail()) {
+            Validations::setHeaderResponse("500 Internal Server Error", $user->fail()->getMessage());
+            exit;
+        }
+        else
+            Validations::setHeaderResponse("201 Created","Usuário atualizado com sucesso.");
+        
+        break;
     default:
         // O metodo usado não é autorizado
         Validations::setHeaderResponse("401 Unauthorized","Método não previsto na API.");
