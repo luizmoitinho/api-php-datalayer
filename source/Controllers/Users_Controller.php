@@ -67,6 +67,12 @@ switch($_SERVER['REQUEST_METHOD']){
             exit;
         }
         $errors = Validations::validateFormCad($data);
+
+        if(!Validations::validateInteger($userId)){
+            Validations::setHeaderResponse("400 Bad request","Id infomardo é inválido, não é um valor inteiro.");
+            exit;
+        }
+        
         if($errors !== TRUE){
             Validations::setHeaderResponse("400 Bad request","Há campos inválidos no formulário.",$errors);
             exit;
@@ -107,6 +113,10 @@ switch($_SERVER['REQUEST_METHOD']){
             $userId = filter_input(INPUT_GET,'id');
             if(!$userId){
                 Validations::setHeaderResponse("400 Bad Request","id não informado");
+                exit;
+            }
+            if(!Validations::validateInteger($userId)){
+                Validations::setHeaderResponse("400 Bad request","Id infomardo é inválido, não é um valor inteiro.");
                 exit;
             }
             $user = (new User_Model())->findById($userId);

@@ -13,7 +13,7 @@ final class Validations{
     }
 
     public static function validateInteger(string $integer){
-        return filter_var($integer,FILTER_VALIDATE_INT);
+        return filter_var($integer,FILTER_VALIDATE_INT) && $integer>0;
     }
 
 
