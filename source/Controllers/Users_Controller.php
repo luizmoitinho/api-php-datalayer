@@ -87,6 +87,25 @@ switch($_SERVER['REQUEST_METHOD']){
             Validations::setHeaderResponse("201 Created","Usuário atualizado com sucesso.");
         
         break;
+        case 'DELETE':
+            $userId = filter_input(INPUT_GET,'id');
+            if(!$userId){
+                Validations::setHeaderResponse("400 Bad Request","id não informado");
+                exit;
+            }
+            $user = (new User_Model())->findById($userId);
+            if(!$user){
+                Validations::setHeaderResponse("204 No Content","Nenhum usuário encontrado com esse id.");
+                exit;
+            }
+             $valid = $user->destroy();
+             if($user->fail()){
+                Validations::setHeaderResponse("500 Internal Server Error",$user->fail()->getMessage());
+                exit;
+             }
+            $valid ? Validations::setHeaderResponse("200 Ok","Usuário removido com sucesso."):
+                     Validations::setHeaderResponse("200 Ok","Nenhum usuário pode removido.");
+            break;
     default:
         // O metodo usado não é autorizado
         Validations::setHeaderResponse("401 Unauthorized","Método não previsto na API.");
