@@ -72,6 +72,22 @@ switch($_SERVER['REQUEST_METHOD']){
             exit;
         }
 
+        if(!(new User_Model())->findById($userId)){
+            Validations::setHeaderResponse("204 No Content","Nenhum usuário encontrado com esse id.");
+            exit;
+        }
+        
+        $data = json_decode(file_get_contents('php://input'),false);
+        if(!$data){
+            Validations::setHeaderResponse("400 Bad request","Nenhum dado foi informado.");
+            exit;
+        }
+        $errors = Validations::validateFormCad($data);
+        if($errors !== TRUE){
+            Validations::setHeaderResponse("400 Bad request","Há campos inválidos no formulário.",$errors);
+            exit;
+        }
+
         $user =  (new User_Model())->findById($userId);
         $user->nome_usuario  = $data->nome_usuario;
         $user->email_usuario = $data->email_usuario;
