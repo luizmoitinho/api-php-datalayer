@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Source\\' => array($baseDir . '/source'),
+    'Lcobucci\\JWT\\' => array($vendorDir . '/lcobucci/jwt/src'),
     'CoffeeCode\\DataLayer\\' => array($vendorDir . '/coffeecode/datalayer/src'),
 );

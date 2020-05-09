@@ -11,6 +11,10 @@ class ComposerStaticInitcf2060dc959e82172b7ad2eb89e3b810
         array (
             'Source\\' => 7,
         ),
+        'L' => 
+        array (
+            'Lcobucci\\JWT\\' => 13,
+        ),
         'C' => 
         array (
             'CoffeeCode\\DataLayer\\' => 21,
@@ -21,6 +25,10 @@ class ComposerStaticInitcf2060dc959e82172b7ad2eb89e3b810
         'Source\\' => 
         array (
             0 => __DIR__ . '/../..' . '/source',
+        ),
+        'Lcobucci\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
         'CoffeeCode\\DataLayer\\' => 
         array (
