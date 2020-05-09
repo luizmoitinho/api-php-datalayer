@@ -3,7 +3,8 @@
     "description": "Simoles REST API PHP",
     "type": "project",
     "require": {
-        "coffeecode/datalayer": "1.1.*"
+        "coffeecode/datalayer": "1.1.*",
+        "lcobucci/jwt": "^3.3"
     },
     "license": "MIT",
     "authors": [

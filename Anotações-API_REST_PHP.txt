@@ -1,0 +1,4 @@
+ - inicializar o composer : 
+	composer init
+
+ - Minimum Stability []: stable
