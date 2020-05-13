@@ -2,6 +2,7 @@
 
 namespace Source\Controlers;
 
+use Example\Models\User;
 use Source\Models\Validations;
 use Source\Models\User_Model;
 
@@ -11,7 +12,24 @@ require_once('../config.php');
 //$_SERVER -> informações das requisições
 
 switch($_SERVER['REQUEST_METHOD']){
-    
+    case 'LOGIN':
+       
+        $data =  json_decode(file_get_contents('php://input'),false);
+        if(!$data){ 
+            Validations::setHeaderResponse("400 Bad request","Nenhum dado foi informado.");
+            exit;
+        }
+        header("http/1.1 200 ok");
+
+        $user = (new User_Model)->authenticationUser($data->usuario,$data->senha);
+        if($user){
+            echo json_encode(array('response'=>$user));
+        }else{
+            echo json_encode(array('response'=>'Usuário não encontrado.'));
+        }
+        
+
+    break;
     case 'POST':
         // validar os dados do post
         $data =  json_decode(file_get_contents('php://input'),false);
